@@ -101,7 +101,8 @@ function App() {
     keyElements: '',
     keywordsToAvoid: '',
   });
-  const [generateCampaign, setGenerateCampaign] = useState(false);
+  
+  const [generateCampaign] = useState(false);
 
   // State for API interaction and results
   const [generatedPost, setGeneratedPost] = useState<GeneratedPost | null>(null);
