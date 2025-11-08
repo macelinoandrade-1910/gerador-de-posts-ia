@@ -9,6 +9,7 @@ import {
 
 // Verifique se a chave da API está disponível. A variável de ambiente DEVE começar com VITE_
 const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
 if (!apiKey) {
   throw new Error("A chave da API VITE_GEMINI_API_KEY não foi encontrada. Verifique seu arquivo .env ou as configurações de ambiente.");
 }
@@ -95,10 +96,16 @@ export const generateSocialMediaPost = async (
     },
   });
 
-  let imageUrl = "";
+  let imageUrl: string = "";
+ if (!imageResponse.candidates || 
+      imageResponse.candidates.length === 0 ||
+      !imageResponse.candidates[0]?.content?.parts) {
+    throw new Error("Resposta inválida da API de imagem");
+  }
+ 
   for (const part of imageResponse.candidates[0].content.parts) {
     if (part.inlineData) {
-      const base64ImageBytes: string = part.inlineData.data;
+      const base64ImageBytes =part.inlineData.data as string;
       imageUrl = `data:image/png;base64,${base64ImageBytes}`;
       break;
     }
@@ -171,7 +178,7 @@ export const generateSocialMediaPost = async (
     },
   });
 
-  const textData = JSON.parse(textResponse.text);
+  const textData = JSON.parse(textResponse.text as string);
 
   // 3. Combine image and text into a single post object
   const finalPost: GeneratedPost = {
@@ -285,7 +292,7 @@ export const generateSocialMediaCampaign = async (
     },
   });
 
-  const campaignData: GeneratedCampaign = JSON.parse(textResponse.text);
+  const campaignData: GeneratedCampaign = JSON.parse(textResponse.text as string);
 
   // 2. Generate an image for each post description
   for (const post of campaignData.posts) {
@@ -324,10 +331,15 @@ export const generateSocialMediaCampaign = async (
       },
     });
 
-    let imageUrl = "";
+    let imageUrl: string = "";
+   if (!imageResponse.candidates || 
+        imageResponse.candidates.length === 0 ||
+        !imageResponse.candidates[0]?.content?.parts) {
+      throw new Error("Resposta inválida da API de imagem");
+    }
     for (const part of imageResponse.candidates[0].content.parts) {
       if (part.inlineData) {
-        const base64ImageBytes: string = part.inlineData.data;
+        const base64ImageBytes = part.inlineData.data as string;
         imageUrl = `data:image/png;base64,${base64ImageBytes}`;
         break;
       }

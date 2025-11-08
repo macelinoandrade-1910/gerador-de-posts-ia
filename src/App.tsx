@@ -306,7 +306,7 @@ function App() {
 
                 <div className="border-b border-slate-200">
                     <nav className="-mb-px flex space-x-4" aria-label="Tabs">
-                        {generatedCampaign.posts.map((post, index) => (
+                        {generatedCampaign.posts.map((_, index) => (
                              <button key={index} onClick={() => setActiveTab(index)} className={`${
                                 activeTab === index
                                 ? 'border-yellow-500 text-yellow-600'
