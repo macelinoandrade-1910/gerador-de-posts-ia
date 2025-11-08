@@ -253,18 +253,18 @@ function App() {
                  </div>
               </div>
 
-               <div className="pt-2">
-                <label className="flex items-center space-x-3 cursor-pointer">
-                    <input
-                        type="checkbox"
-                        checked={generateCampaign}
-                        onChange={(e) => setGenerateCampaign(e.target.checked)}
-                        className="h-5 w-5 rounded border-slate-300 text-yellow-500 focus:ring-yellow-500"
-                    />
-                    <span className="text-sm font-medium text-slate-700">✨ Gerar uma mini-campanha (3 posts)</span>
+            <div className="pt-2 opacity-50 cursor-not-allowed">
+                <label className="flex items-center space-x-3">
+                  <input
+                    type="checkbox"
+                    disabled
+                    className="h-5 w-5 rounded border-slate-300 text-yellow-500"
+                  />
+                  <span className="text-sm font-medium text-slate-700">
+                    ✨ Mini-campanha (em breve)
+                  </span>
                 </label>
               </div>
-
               <button type="submit" disabled={isLoading} className="w-full bg-yellow-400 text-slate-900 font-bold py-3 px-4 rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-400 focus:ring-opacity-50 transition-all duration-300 ease-in-out disabled:bg-slate-300 disabled:cursor-not-allowed flex items-center justify-center text-lg">
                 {isLoading ? (
                   <>
