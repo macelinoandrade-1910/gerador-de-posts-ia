@@ -89,7 +89,7 @@ export const generateSocialMediaPost = async (
   }
 
   const imageResponse = await ai.models.generateContent({
-    model: "gemini-2.5-flash-image",
+    model: "models/nano-banana",
     contents: { parts: imageRequestParts },
     config: {
       responseModalities: [Modality.IMAGE],
@@ -137,7 +137,7 @@ export const generateSocialMediaPost = async (
   `;
 
   const textResponse = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
+    model: "models/nano-banana",
     contents: textPrompt,
     config: {
       responseMimeType: "application/json",
